@@ -12,11 +12,14 @@ CREATE TABLE "Client" (
 
 -- CreateTable
 CREATE TABLE "Contact" (
+    "contactId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "date" TEXT NOT NULL,
-    "clientId" TEXT NOT NULL
+    "clientId" TEXT NOT NULL,
+
+    CONSTRAINT "Contact_pkey" PRIMARY KEY ("contactId")
 );
 
 -- CreateIndex

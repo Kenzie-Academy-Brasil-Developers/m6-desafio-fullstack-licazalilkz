@@ -1,24 +1,25 @@
-import { hashSync } from "bcryptjs"
-import { Transform } from "class-transformer"
-import { IsEmail, IsNotEmpty, IsString } from "class-validator"
+import { hashSync } from 'bcryptjs';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateClientDto {
-    @IsNotEmpty()
-    @IsString()
-    name: string
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 
-    @IsNotEmpty()
-    @IsEmail()
-    email: string
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @Transform(({value}: {value:string}) => hashSync(value, 10), {groups: ['transform']})
-    password: string
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  @Transform(({ value }: { value: string }) => hashSync(value, 10), {
+    groups: ['transform'],
+  })
+  password: string;
 
-    @IsNotEmpty()
-    @IsString()
-    phone: string
-
-    date: string
+  @IsNotEmpty()
+  @IsString()
+  phone: string;
 }

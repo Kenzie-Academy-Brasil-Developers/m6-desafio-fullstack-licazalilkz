@@ -18,10 +18,11 @@ model Client {
 }
 
 model Contact {
+    contactId String @id
     name String
     email String @unique
     phone String
     date String
-    clientId String
     client Client @relation(fields: [clientId], references: [id])
+    clientId String
 }
