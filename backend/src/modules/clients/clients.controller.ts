@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('clients')
 export class ClientsController {
@@ -13,7 +24,8 @@ export class ClientsController {
   }
 
   @Get()
-  findAll() {
+  @UseGuards(JwtAuthGuard)
+  findAll(@Request() req) {
     return this.clientsService.findAll();
   }
 
