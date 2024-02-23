@@ -15,7 +15,7 @@ export class ContactsService {
         contactId: contact.contactId,
         date: contact.date,
         email: contact.email,
-        name: contact.email,
+        name: contact.name,
         phone: contact.phone,
         clientId,
       },
@@ -23,11 +23,11 @@ export class ContactsService {
     return newContact;
   }
 
-  async findAll() {
+  async findAll(): Promise<Contact[]> {
     return await this.prisma.contact.findMany();
   }
 
-  async findOne(contactId: string) {
+  async findOne(contactId: string): Promise<Contact>  {
     const contact = await this.prisma.contact.findFirst({
       where: { contactId },
     });

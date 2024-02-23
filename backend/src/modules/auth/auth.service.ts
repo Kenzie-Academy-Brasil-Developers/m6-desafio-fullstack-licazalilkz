@@ -13,15 +13,13 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const client = await this.clientsService.findByEmail(loginDto.email);
-    console.log(loginDto);
-    console.log(client.password);
     if (!client) {
       throw new UnauthorizedException(
         'Email doesnt exists or is wrong, please try again.',
       );
     }
     if (!(await compare(loginDto.password, client.password))) {
-      console.log('test');
+      throw new UnauthorizedException("Invalid password !")
     }
     return {
       token: this.jwtService.sign(
