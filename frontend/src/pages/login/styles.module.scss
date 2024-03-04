@@ -1,0 +1,172 @@
+.loginContainer {
+  background-color: var(--color-gray4);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.contentLogo {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+  width: 370px;
+}
+
+.content {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--color-gray3);
+
+  gap: 20px;
+  width: 370px;
+  padding: 42px 22px;
+
+  margin-bottom: 30px;
+
+  .buttonLogin {
+    display: flex;
+    width: 326px;
+    height: 48px;
+    padding: 0px 22.334px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 4px;
+    border: 1.218px solid var(--color-primary-negative);
+    background: var(--color-primary);
+
+    color: var(--color-gray0);
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26.394px;
+
+    cursor: pointer;
+  }
+
+  .buttonRegister {
+    display: flex;
+    width: 326px;
+    height: 48px;
+    padding: 0px 22.334px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 4px;
+    border: 1.218px solid var(--color-primary-negative);
+    background: var(--color-gray1);
+
+    color: var(--color-gray0);
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26.394px;
+
+    cursor: pointer;
+  }
+
+  h1 {
+    color: var(--color-gray0);
+  }
+
+  p {
+    font-family: var(--font-family);
+    color: var(--color-gray1);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .content {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--color-gray3);
+
+    gap: 20px;
+    width: 296px;
+    padding: 42px 22px;
+
+    margin-bottom: 30px;
+
+    .buttonLogin {
+      display: flex;
+      width: 100%;
+      height: 48px;
+      padding: 0px 22.334px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      border-radius: 4px;
+      border: 1.218px solid var(--color-primary-negative);
+      background: var(--color-primary);
+
+      color: var(--color-gray0);
+      font-family: var(--font-family);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26.394px;
+
+      cursor: pointer;
+    }
+
+    .buttonRegister {
+      display: flex;
+      width: 100%;
+      height: 48px;
+      padding: 0px 22.334px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      border-radius: 4px;
+      border: 1.218px solid var(--color-primary-negative);
+      background: var(--color-gray1);
+
+      color: var(--color-gray0);
+      font-family: var(--font-family);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26.394px;
+
+      cursor: pointer;
+    }
+
+    h1 {
+      color: var(--color-gray0);
+    }
+
+    p {
+      font-family: var(--font-family);
+      color: var(--color-gray1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+  }
+}

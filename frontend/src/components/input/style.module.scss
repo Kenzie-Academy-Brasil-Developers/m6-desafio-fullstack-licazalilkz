@@ -1,0 +1,31 @@
+.content {
+  display: flex;
+  height: 105px;
+  padding: 8px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 22px;
+
+  color: var(--color-gray0);
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0px;
+
+  input,
+  select {
+    display: flex;
+    width: 100%;
+    height: 48px;
+    padding: 0px 16px;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--color-gray0);
+    border-radius: 4px;
+    border: 1px solid var(--color-gray2);
+    background: var(--color-gray2);
+  }
+}
