@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const singIn = async (data: LoginData) => {
     try {
-      const response = await api.post('/login');
+      const response = await api.post('/login', data);
       const { token } = response.data;
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem('@fullstackToken', token);

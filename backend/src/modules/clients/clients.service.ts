@@ -13,7 +13,6 @@ import { PrismaService } from 'prisma/database/prisma.service';
 export class ClientsService {
   constructor(private prisma: PrismaService) {}
 
-
   async create(createClientDto: CreateClientDto) {
     const foundClient = await this.prisma.client.findFirst({
       where: { email: createClientDto.email },
@@ -27,12 +26,10 @@ export class ClientsService {
     return plainToInstance(Client, client);
   }
 
-
   async findAll(): Promise<Client[]> {
     const client = await this.prisma.client.findMany();
     return plainToInstance(Client, client);
   }
-
 
   async findOne(id: string): Promise<Client> {
     const client = await this.prisma.client.findUnique({ where: { id } });
@@ -42,12 +39,10 @@ export class ClientsService {
     return plainToInstance(Client, client);
   }
 
-
   async findByEmail(email: string): Promise<Client> {
     const client = await this.prisma.client.findUnique({ where: { email } });
     return client;
   }
-
 
   async update(id: string, updateClientDto: UpdateClientDto) {
     const client = await this.prisma.client.findUnique({ where: { id } });
@@ -61,7 +56,6 @@ export class ClientsService {
     return plainToInstance(Client, updatedClient);
   }
 
-  
   async remove(id: string) {
     const client = await this.prisma.client.findUnique({ where: { id } });
     if (!client) {

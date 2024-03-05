@@ -3,6 +3,7 @@ import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { PrismaService } from 'prisma/database/prisma.service';
 import { Contact } from './entities/contact.entity';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class ContactsService {
@@ -27,7 +28,7 @@ export class ContactsService {
     return await this.prisma.contact.findMany();
   }
 
-  async findOne(contactId: string): Promise<Contact>  {
+  async findOne(contactId: string): Promise<Contact> {
     const contact = await this.prisma.contact.findFirst({
       where: { contactId },
     });
@@ -37,11 +38,28 @@ export class ContactsService {
     return contact;
   }
 
-  update(id: string, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(contactId: string, updateContactDto: UpdateContactDto) {
+    const contact = await this.prisma.contact.findUnique({
+      where: { contactId },
+    });
+    if (!contact) {
+      throw new NotFoundException('Contact not registered');
+    }
+    const updateContact = await this.prisma.contact.update({
+      where: { contactId },
+      data: { ...updateContactDto },
+    });
+    return plainToInstance(Contact, updateContact);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} contact`;
+  async remove(contactId: string) {
+    const contact = await this.prisma.contact.findUnique({
+      where: { contactId },
+    });
+    if (!contact) {
+      throw new NotFoundException('Contact doesnt exists');
+    }
+    await this.prisma.contact.delete({ where: { contactId } });
+    return plainToInstance(Contact, contact);
   }
 }
