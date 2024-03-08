@@ -16,9 +16,8 @@ export const Login = () => {
     resolver: zodResolver(schema),
   });
 
-  const submitLogin = (data: LoginData) => {
-    singIn(data);
-    console.log(data);
+  const submitLogin = (formData: LoginData) => {
+    singIn(formData);
   };
   return (
     <div className={styles.loginContainer}>

@@ -16,12 +16,6 @@ import { ClientsModule } from '../clients/clients.module';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    ClientsService,
-    JwtService,
-    PrismaService,
-    JwtStrategy,
-  ],
+  providers: [AuthService, ClientsService, PrismaService, JwtStrategy],
 })
 export class AuthModule {}

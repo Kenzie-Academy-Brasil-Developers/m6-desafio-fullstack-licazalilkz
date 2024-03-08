@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { LoginData } from '../pages/login/formSchemaLogin';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/index';
@@ -9,6 +9,7 @@ interface AuthProviderProps {
 
 interface AuthContextValues {
   singIn: (data: LoginData) => void;
+  loading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextValues>(
@@ -17,13 +18,27 @@ export const AuthContext = createContext<AuthContextValues>(
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-  const singIn = async (data: LoginData) => {
+  useEffect(() => {
+    const token = localStorage.getItem('@fullstackToken');
+    if (!token) {
+      setLoading(false);
+    }
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    setLoading(false);
+  }, []);
+
+  const singIn = async (formData: LoginData) => {
     try {
-      const response = await api.post('/login', data);
-      const { token } = response.data;
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      localStorage.setItem('@fullstackToken', token);
+      const response = await api.post('/login', formData);
+      const tokenUser = response.data.token;
+      const id = response.data.id;
+      console.log(response.data.token);
+      console.log(response.data.id);
+      api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
+      localStorage.setItem('@fullstackToken', tokenUser);
+      localStorage.setItem('@fullstackId', id);
       navigate('dashboard');
     } catch (error) {
       console.log(error);
@@ -31,6 +46,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ singIn }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ singIn, loading }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

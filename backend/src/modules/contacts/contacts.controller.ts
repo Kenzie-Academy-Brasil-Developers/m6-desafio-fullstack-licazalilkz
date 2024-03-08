@@ -44,14 +44,17 @@ export class ContactsController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
-    return this.contactsService.update(id, updateContactDto);
+  update(
+    @Param('id') contactId: string,
+    @Body() updateContactDto: UpdateContactDto,
+  ) {
+    return this.contactsService.update(contactId, updateContactDto);
   }
 
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.contactsService.remove(id);
+  remove(@Param('id') contactId: string) {
+    return this.contactsService.remove(contactId);
   }
 }

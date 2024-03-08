@@ -19,13 +19,15 @@ export class AuthService {
       );
     }
     if (!(await compare(loginDto.password, client.password))) {
-      throw new UnauthorizedException("Invalid password !")
+      throw new UnauthorizedException('Invalid password !');
     }
+
     return {
-      token: this.jwtService.sign(
-        { email: loginDto.email },
-        { subject: client.id, secret: process.env.SECRET_KEY },
-      ),
+      token: this.jwtService.sign({
+        id: client.id,
+        secret: process.env.SECRET_KEY,
+      }),
+      id: client.id,
     };
   }
 }

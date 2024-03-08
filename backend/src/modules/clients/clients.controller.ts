@@ -15,7 +15,6 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
 @ApiTags('clients')
 @Controller('clients')
 export class ClientsController {
