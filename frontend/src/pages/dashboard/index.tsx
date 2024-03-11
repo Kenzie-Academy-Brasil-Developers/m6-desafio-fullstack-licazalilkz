@@ -3,23 +3,21 @@ import styles from './styles.module.scss';
 import { api } from '../../../api';
 import { ContactsList } from './contacts';
 import { userProfile } from './getUser';
+import { useNavigate } from 'react-router-dom';
+import { getContacts } from './getContacts';
 
 export const Dashboard = () => {
   const [userInfo, setUserInfo] = useState('');
   const [contatcs, setContacs] = useState([]);
+  const navigate = useNavigate();
 
   userProfile([setUserInfo]);
-
-  useEffect(() => {
-    (async () => {
-      const response = await api.get('contacts');
-      setContacs(response.data);
-    })();
-  }, []);
+  getContacts([setContacs]);
 
   function logout() {
     localStorage.removeItem('@fullstackToken');
     localStorage.removeItem('@fullstackId');
+    navigate('/');
   }
 
   return (
