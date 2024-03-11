@@ -13,6 +13,7 @@ interface AuthContextValues {
   singIn: (data: LoginData) => void;
   registerUser: (data: RegisterData) => void;
   registerContact: (data: ContactData) => void;
+  editContact: (id: String, data: ContactData) => void;
   loading: boolean;
 }
 
@@ -50,6 +51,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const registerUser = async (formData: RegisterData) => {
     try {
       await api.post('/clients', formData);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -66,9 +68,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const editContact = async (contactId: String, formData: ContactData) => {
+    try {
+      const tokenUser = localStorage.getItem('@fullstackToken');
+      api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
+      await api.patch(`/contacts/${contactId}`, formData);
+      navigate('/dashboard');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ singIn, registerUser, registerContact, loading }}
+      value={{ singIn, registerUser, registerContact, editContact, loading }}
     >
       {children}
     </AuthContext.Provider>

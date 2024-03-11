@@ -1,7 +1,47 @@
-export const ContactsList = ({ contatcs }: any) => {
-  const deleta = (id: string) => {
+import { SetStateAction, useState } from 'react';
+import { api } from '../../../api';
+import { EditClientModal } from '../modal/editClientModal';
+
+interface Contact {
+  contactId: string;
+  name: string;
+  email: string;
+  phone: string;
+  date: string;
+}
+
+interface Props {
+  contatcs: Contact[];
+}
+
+export const ContactsList = ({ contatcs }: Props) => {
+  const [isVisible2, setIsVisible2] = useState(false);
+  const [contactId, setContactId] = useState('');
+  const deleta = async (id: string) => {
+    const token = localStorage.getItem('@fullstackToken');
     console.log(id);
+
+    try {
+      await api.delete(`/contacts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(`Cliente com ID ${id} deletado com sucesso.`);
+    } catch (error) {
+      console.log(`Client do id:${id} nao encontrado`);
+      console.log(error);
+    }
+
+    console.log(id);
+    window.location.reload();
   };
+
+  const editModal = (idContact: any) => {
+    setIsVisible2(true);
+    setContactId(idContact);
+  };
+
   return (
     <>
       {contatcs.map(
@@ -26,11 +66,21 @@ export const ContactsList = ({ contatcs }: any) => {
                 >
                   deletar
                 </button>
+                <button
+                  onClick={(event) => {
+                    editModal(contact.contactId);
+                  }}
+                >
+                  Editar
+                </button>
               </div>
             </li>
           );
         },
       )}
+      {isVisible2 ? (
+        <EditClientModal contactId={contactId} setVisible2={setIsVisible2} />
+      ) : null}
     </>
   );
 };
