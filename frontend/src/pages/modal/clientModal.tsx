@@ -18,6 +18,7 @@ export const ClientModal = ({ setVisible }: any) => {
 
   const onSubmit = (formData: ContactData) => {
     registerContact(formData);
+    window.location.reload();
     console.log(formData);
   };
 

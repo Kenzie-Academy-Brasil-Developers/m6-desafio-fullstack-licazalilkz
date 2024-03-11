@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const registerUser = async (formData: RegisterData) => {
     try {
       await api.post('/clients', formData);
-      navigate('/');
     } catch (error) {
       console.log(error);
     }
