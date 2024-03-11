@@ -23,10 +23,10 @@ export class AuthService {
     }
 
     return {
-      token: this.jwtService.sign({
-        id: client.id,
-        secret: process.env.SECRET_KEY,
-      }),
+      token: this.jwtService.sign(
+        { email: loginDto.email },
+        { subject: client.id, secret: process.env.SECRET_KEY },
+      ),
       id: client.id,
     };
   }

@@ -7,16 +7,20 @@ export const getContacts = async ([setContacs]: any) => {
     const userId = localStorage.getItem('@fullstackId');
 
     const getContacts = async () => {
-      const response = await api.get('contacts', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const filteredContacts = response.data.filter(
-        (contact: any) => contact.clientId === userId,
-      );
-      setContacs(filteredContacts);
+      try {
+        const response = await api.get('contacts', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const filteredContacts = response.data.filter(
+          (contact: any) => contact.clientId === userId,
+        );
+        setContacs(filteredContacts);
+      } catch (error) {
+        console.log('Nao foi possivel obter o contato');
+      }
     };
     getContacts();
-  });
+  }, []);
 };

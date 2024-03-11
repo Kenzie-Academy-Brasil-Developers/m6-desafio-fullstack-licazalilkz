@@ -15,5 +15,5 @@ export const userProfile = async ([setUserInfo]: any) => {
       setUserInfo(response.data);
     };
     getInfos();
-  });
+  }, []);
 };

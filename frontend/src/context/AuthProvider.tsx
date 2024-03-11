@@ -3,6 +3,7 @@ import { LoginData } from '../pages/login/formSchemaLogin';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/index';
 import { RegisterData } from '../pages/register/formSchemaRegister';
+import { ContactData } from '../pages/modal/forSchemaContact';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -11,6 +12,7 @@ interface AuthProviderProps {
 interface AuthContextValues {
   singIn: (data: LoginData) => void;
   registerUser: (data: RegisterData) => void;
+  registerContact: (data: ContactData) => void;
   loading: boolean;
 }
 
@@ -54,8 +56,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const registerContact = async (formData: ContactData) => {
+    try {
+      const tokenUser = localStorage.getItem('@fullstackToken');
+      api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
+      await api.post('/contacts', formData);
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ singIn, registerUser, loading }}>
+    <AuthContext.Provider
+      value={{ singIn, registerUser, registerContact, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
