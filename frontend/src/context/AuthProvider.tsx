@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 import { LoginData } from '../pages/login/formSchemaLogin';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/index';
+import { RegisterData } from '../pages/register/formSchemaRegister';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -9,6 +10,7 @@ interface AuthProviderProps {
 
 interface AuthContextValues {
   singIn: (data: LoginData) => void;
+  registerUser: (data: RegisterData) => void;
   loading: boolean;
 }
 
@@ -34,8 +36,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await api.post('/login', formData);
       const tokenUser = response.data.token;
       const id = response.data.id;
-      console.log(response.data.token);
-      console.log(response.data.id);
       api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
       localStorage.setItem('@fullstackToken', tokenUser);
       localStorage.setItem('@fullstackId', id);
@@ -45,8 +45,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const registerUser = async (formData: RegisterData) => {
+    try {
+      await api.post('/clients', formData);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ singIn, loading }}>
+    <AuthContext.Provider value={{ singIn, registerUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

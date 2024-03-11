@@ -4,9 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginData, schema } from './formSchemaLogin';
 import { useForm } from 'react-hook-form';
 import { UserAuth } from '../../context/userAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const { singIn } = UserAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -19,6 +21,11 @@ export const Login = () => {
   const submitLogin = (formData: LoginData) => {
     singIn(formData);
   };
+
+  function registerPage() {
+    navigate('/register');
+  }
+
   return (
     <div className={styles.loginContainer}>
       <h1> login </h1>
@@ -39,8 +46,12 @@ export const Login = () => {
           <button className={styles.buttonLogin} type="submit">
             Entrar
           </button>
-          <button className={styles.buttonRegister}>Cadastrar-se</button>
         </form>
+        <p>Ainda não possui uma conta ?</p>
+
+        <button className={styles.buttonRegister} onClick={registerPage}>
+          Cadastrar-se
+        </button>
       </div>
     </div>
   );

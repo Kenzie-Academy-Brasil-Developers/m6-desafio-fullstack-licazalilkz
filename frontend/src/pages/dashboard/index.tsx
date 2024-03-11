@@ -19,6 +19,7 @@ export const Dashboard = () => {
 
   function logout() {
     localStorage.removeItem('@fullstackToken');
+    localStorage.removeItem('@fullstackId');
   }
 
   return (
