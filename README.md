@@ -2,7 +2,7 @@
 
 # Instalação para rodar localmente
 
-- Após clonar o repositório na sua máquina, em ambas pastas frontend e backend, rode o comando **npm install**, para instalação das dependências.
+- Após clonar o repositório na sua máquina, em ambas pastas frontend e backend, rode o comando **"npm install"**, para instalação das dependências.
 
 # Iniciando a aplicacao
 
